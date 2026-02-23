@@ -2,13 +2,12 @@
 
 ## Overview
 
-Implement your first practical tool: `read_file`. This allows the LLM to read file contents from disk, making it useful for real coding tasks.
+Implement your first really practical tool: `read_file`. This allows the LLM to read file contents from disk, making it useful for real coding tasks.
 
 ## Learning Objectives
 
 - Define tools with parameters
 - Parse tool arguments from the LLM
-- Implement file I/O in a tool
 - Handle tool errors gracefully
 
 ## Background
@@ -113,7 +112,7 @@ Your implementation should pass this test:
 **Expected Behavior:**
 1. LLM requests `read_file` tool call with argument `{"file_path": "secret.txt"}`
 2. Your code reads the file
-3. Returns contents: "1234"
+3. Adds contents to the conversation: "1234"
 4. LLM generates response
 
 **Expected Output:**
@@ -123,36 +122,19 @@ The contents of secret.txt are: 1234
 
 (Or similar phrasing that includes the file contents)
 
-## Example Test File Creation
-
-**Windows (PowerShell):**
-```powershell
-"1234" | Out-File -FilePath secret.txt
-```
-
-**Linux/Mac (Bash):**
-```bash
-echo "1234" > secret.txt
-```
-
-**C# (in your test code):**
-```csharp
-File.WriteAllText("secret.txt", "1234");
-```
-
 ## Security Considerations
 
-⚠️ **Warning**: This tool can read ANY file the agent has permissions to access. Consider:
+⚠️ **Warning**: This tool can read ANY file the agent has permissions to access. In production scenario's consider:
 
 - **Path validation**: Restrict to certain directories
 - **Blacklists**: Prevent reading sensitive files (e.g., `.env`, private keys)
 - **Sandboxing**: Run in a container or restricted environment
 
-For this workshop, we'll skip these protections, but they're critical for production systems.
+For this workshop, we'll skip these protections, but they're critical for production systems!
 
 ## Testing Tips
 
-Test various scenarios:
+Test various scenarios and watch the LLM try to find its way to the file:
 
 **Different file paths:**
 ```
@@ -175,7 +157,7 @@ Should return an error message gracefully.
 
 ## Common Pitfalls
 
-- **Not handling file not found**: Always check if file exists
+- **Not handling file not found**: Always check if file exists and make sure the LLM sees clear error messages in the conversation so it knows what went wrong.
 - **Incorrect argument parsing**: Make sure you extract the `file_path` correctly
 - **Path separators**: Windows uses `\`, Unix uses `/` - consider normalizing paths or put your OS in the system prompt.
 - **Encoding issues**: `File.ReadAllText()` uses UTF-8 by default; ensure your test files match
@@ -189,6 +171,12 @@ Console.WriteLine($"[Tool Call] {toolCall.FunctionName}({toolCall.FunctionArgume
 ```
 
 This helps verify the LLM is calling the tool correctly.
+
+## Quiz Yourself
+
+- [ ] How does defining a tool with parameters differ from a parameterless tool like `get_secret`? What extra information must you provide to the LLM and what extra data does the LLM send in a tool request message?
+- [ ] What should your tool return when the requested file doesn't exist — and why is it important to return an error message rather than throwing an exception?
+- [ ] What security risks does a `read_file` tool introduce, and what mitigations would you consider for a production system?
 
 ## Next Steps
 

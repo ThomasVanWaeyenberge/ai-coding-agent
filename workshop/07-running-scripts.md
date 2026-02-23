@@ -2,7 +2,7 @@
 
 ## Overview
 
-Implement the ability to execute shell commands or scripts. This is the most powerful (and dangerous) capability, allowing the agent to run code, execute tests, and interact with the system.
+Implement the ability to execute shell commands or scripts. This is the most powerful (and dangerous ☢️) capability, allowing the agent to run code, execute tests, and interact with the system.
 
 ## Learning Objectives
 
@@ -26,7 +26,7 @@ The ability to execute commands completes your agent's toolkit.
 
 **This is extremely dangerous!**
 
-The LLM can execute ANY command your user account has permission to run, including:
+Depending on how you implement this step, the LLM can execute ANY command your user account has permission to run, including:
 
 - Deleting files (`rm -rf /` on Linux, `del /F /S /Q C:\` on Windows)
 - Installing malware
@@ -337,7 +337,13 @@ Congratulations! You've built a complete AI coding agent with:
 - ✅ System prompts for behavior control
 - ✅ File reading
 - ✅ File writing
-- ✅ Code execution
+- ✅ Command execution
+
+## Quiz Yourself
+
+- [ ] Why is a script execution tool considered significantly more dangerous than `read_file` or `write_file`? What can it do that those tools cannot?
+- [ ] Why is it important to capture both stdout and stderr when executing commands?
+- [ ] What could go wrong if you execute a command that never terminates (e.g., starting a web server), and how would you protect against it?
 
 ### Ideas for Further Enhancement
 
@@ -349,4 +355,4 @@ Congratulations! You've built a complete AI coding agent with:
 6. **Safety layers**: Implement sandboxing, rate limits, confirmation dialogs
 7. **Memory**: Persist conversation across sessions
 
-You now have the foundation to build increasingly sophisticated AI agents!
+You now have the foundation to both build and leverage increasingly sophisticated AI agents. Congratulations!

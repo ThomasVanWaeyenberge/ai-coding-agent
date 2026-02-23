@@ -29,14 +29,18 @@ Install the appropriate package for your language.
 You have three options:
 
 **Option A: Use LM Studio (Local)**
+
 - Start LM Studio server (typically `http://localhost:1234/v1`)
 - Configure your client to point to this endpoint
 - No API key required (use a dummy key like "not-needed")
 - 
 **Option B: Use a key provided by the facilitator (Cloud)**
-- Facilitator will hand out url, key and model names
+
+- Your facilitator will hand out url, api key and model names
 
 **Option C: Use your own API key (Cloud)**
+
+-glhf. you're on your own regarding setup
 
 ### 3. Build the REPL Loop
 
@@ -51,7 +55,7 @@ Create a program that:
 - Conversation history (yet)
 - Error handling
 - Fancy UI
-- Streaming responses
+- Streaming responses from the model
 
 ### 4. Example Structure
 
@@ -83,14 +87,20 @@ Your implementation should pass this test:
 Hello world
 ```
 
-(Note: The exact output may vary slightly depending on the model, but it should contain "hello world" or a close variant)
+(Note: The exact output may vary slightly depending on the model quality, but it should contain "hello world" or a close variant)
 
 ## Tips
 
-- **KISS (Keep It Super Simple)**: Resist the urge to add features. You have plenty more exercises ahead!
+- **KISS (Keep It Super Simple)**: Resist the urge to add features. You have plenty more exercises ahead that will melt your brain!
 - **Test as you go**: Manually verify it works before moving on
-- **Optional enhancement**: If you're comfortable with testing, consider writing automated end-to-end tests. This will save you from manual regression testing after each exercise.
+- **Optional enhancement**: If you're comfortable with test automation, consider writing automated end-to-end tests. This will save you from manual regression testing after each exercise.
+
+## Quiz Yourself
+
+- [ ] What does the LLM receive when you send a single user message?
+- [ ] What happens if I tell the LLM my name in a first message, and then ask it to greet me in a second message? Will it remember my name? Why or why not?
+- [ ] What happens if you send the same prompt to the LLM twice — will you always get the same response? Why or why not?
 
 ## Next Steps
 
-Once your REPL is working, proceed to [Exercise 2: Adding a System Prompt](./02-system-prompt.md).
+Once your REPL is working, proceed to [Exercise 2: Conversation History](./02-conversation-history.md).

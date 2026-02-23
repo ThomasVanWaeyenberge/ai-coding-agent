@@ -8,7 +8,6 @@ Implement the `write_file` tool to allow the LLM to create and modify files. Com
 
 - Implement a tool with multiple parameters
 - Handle file writing operations safely
-- Enable the LLM to generate and persist content
 
 ## Background
 
@@ -106,7 +105,7 @@ Your implementation should pass this test:
 1. LLM generates a poem
 2. LLM requests `write_file` tool call with:
    - `file_path`: "poem.txt"
-   - `content`: [the generated poem]
+   - `content`: [the LLM-generated poem]
 3. Your code writes the file
 4. Tool returns success message
 5. LLM confirms completion
@@ -119,19 +118,6 @@ I've written a poem to poem.txt
 **Verification:**
 - File `poem.txt` exists
 - File contains a poem (multiple lines of text)
-
-## Example Test
-
-```csharp
-// After running your agent with the prompt:
-// "Please come up with a poem and write it to poem.txt"
-
-Assert.True(File.Exists("poem.txt"));
-
-var content = File.ReadAllText("poem.txt");
-Assert.NotEmpty(content);
-Assert.True(content.Split('\n').Length > 1); // Multi-line
-```
 
 ## Security Considerations
 
@@ -215,6 +201,12 @@ Console.WriteLine($"[Content length] {content.Length} characters");
 Console.WriteLine($"[Preview] {content.Substring(0, Math.Min(100, content.Length))}...");
 ```
 
+## Quiz Yourself
+
+- [ ] How does combining `read_file` and `write_file` enable the LLM to edit existing files? What sequence of tool calls would that require?
+- [ ] Why is it important to create parent directories before writing a file?
+- [ ] What is the most dangerous thing an unrestricted `write_file` tool could do, and how would you prevent it?
+
 ## Next Steps
 
-Your agent can now read and write files! Proceed to [Exercise 7: Running Scripts](./07-running-scripts.md) to give it the ability to execute code.
+Your agent can now read and write files! Proceed to [Exercise 7: Running Scripts](./07-running-scripts.md) to give it the ability to execute code. Let's get NUCLEAR! ☢️

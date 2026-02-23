@@ -1,4 +1,4 @@
-# Exercise 3: Conversation History
+# Exercise 2: Conversation History
 
 ## Overview
 
@@ -18,21 +18,13 @@ LLMs are stateless; they don't inherently remember previous messages. To create 
 
 ### 1. Create a Conversation History List
 
-Initialize a list to store all messages (system, user, and assistant):
+Initialize a list to store all messages (user and assistant):
 
 ```csharp
 var conversation = new List<ChatMessage>();
 ```
 
-### 2. Add System Message at Startup
-
-Add your system prompt as the first message:
-
-```csharp
-conversation.Add(ChatMessage.CreateSystemMessage(systemPrompt));
-```
-
-### 3. Update Your REPL Loop
+### 2. Update Your REPL Loop
 
 Modify your loop to:
 
@@ -71,17 +63,9 @@ The model should remember "John" from the first message.
 
 Important consideration: Conversation history grows with each message, increasing token usage and API costs. Each turn includes:
 
-- System message
 - All previous user messages
 - All previous assistant messages
 - Current user message
-
-For long conversations, you may need to implement:
-- **Token limits**: Truncate old messages when history gets too long
-- **Summarization/compaction**: Replace old messages with an LLM-generated summary
-- **Sliding window**: Keep only the last N messages
-
-For this workshop, you can ignore these optimizations.
 
 ## Testing Tips
 
@@ -98,10 +82,16 @@ The model should correctly answer both questions.
 
 ## Common Pitfalls
 
-- **Not adding assistant responses**: Both user AND assistant messages must be stored
+- **Not adding assistant responses**: Both user messages AND assistant responses must be stored and provided to subsequent requests to the model!
 - **Clearing history accidentally**: Make sure your list persists across loop iterations
 - **Wrong message order**: Messages should be chronological
 
+## Quiz Yourself
+
+- [ ] Why must you send the entire conversation history with every API call?
+- [ ] What happens to token usage (and cost) as a conversation grows longer? What strategies can mitigate this?
+- [ ] Why is it important to add both user messages and assistant responses to the conversation history?
+
 ## Next Steps
 
-Now that your agent can maintain context, proceed to [Exercise 4: Tool Calling Basics](./04-tool-calling-basics.md) to give it real capabilities.
+Now that your agent can maintain context, proceed to [Exercise 3: Adding a System Prompt](./03-system-prompt.md) to control its behavior.

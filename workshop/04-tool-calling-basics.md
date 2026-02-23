@@ -14,9 +14,9 @@ Learn about tool calling (also known as function calling), the mechanism that al
 
 LLMs can only generate text. Tool calling allows them to:
 
-1. **Request** to execute a function (e.g., "call get_secret()"). Function execution happens on the client side.
+1. **Request** to execute a function (e.g., "yo agentic harness running on the developer machine, please call get_secret() for me with these inputs"). Function execution happens on the client side.
 2. **Receive** the function's result as a new message type in the conversation.
-3. **Use** that result to formulate a response
+3. **Use** that result to formulate a response in its next assistant response message.
 
 This enables LLMs to perform actions like reading files, querying databases, calling APIs, and more.
 
@@ -27,9 +27,9 @@ User: "What is the secret?"
    ↓
 LLM: [requests tool call: get_secret()]
    ↓
-Assistant: executes get_secret() → returns "42" → puts result in conversation
+Assistant: executes get_secret() → returns "42" → puts result in the conversation
    ↓
-LLM: generates response based on result in conversation
+LLM: generates response based on the "42" result it sees in the conversation
    ↓
 Assistant: "The secret is 42"
 ```
@@ -149,6 +149,7 @@ Your implementation should pass this test:
 2. Your code executes the tool and returns "42" (or your chosen secret)
 3. LLM receives the result
 4. LLM generates final response
+5. You see the LLM response in the console
 
 **Expected Output:**
 ```
@@ -160,7 +161,7 @@ The secret is 42
 ## Common Pitfalls
 
 - **Not adding tool calls to conversation**: Both the tool call request AND the tool result must be added to conversation history
-- **Forgetting to loop**: After adding tool results, you must call the LLM again
+- **Forgetting to loop**: After adding tool results to the conversation, you must call the LLM again
 - **Missing tool IDs**: Tool results must include the correct `tool_call_id`
 - **Not handling assistant messages with tool calls**: The assistant's tool call request is also a message that should be added to history
 
@@ -176,15 +177,13 @@ Try these prompts to verify tool calling works:
 
 All should trigger the tool call.
 
-## Understanding Tool Call Messages
+## Quiz Yourself
 
-A complete tool calling exchange adds these messages to your conversation:
-
-1. User message: "What is the secret?"
-2. Assistant message with tool call request
-3. Tool message with result: "42"
-4. Assistant message with final response: "The secret is 42"
+- [ ] Who actually executes the tool — the LLM or your code? What does the LLM's role in tool calling really consist of?
+- [ ] Why do you need to call the LLM again after executing a tool and adding the result to the conversation?
+- [ ] What are the four message types in a complete tool calling exchange, and in what order do they appear in the conversation?
 
 ## Next Steps
 
 Now that you understand tool calling, proceed to [Exercise 5: Reading Files](./05-reading-files.md) to implement a practical tool.
+
