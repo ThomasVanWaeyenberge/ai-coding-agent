@@ -15,16 +15,6 @@ client = OpenAI(
     api_key=api_key
     )
 
-completion = client.chat.completions.create(
-model=deployment_name,
-messages=[
-    {
-    "role": "user",
-    "content": "What is the capital of France?",
-    }
-    ],
-)
-
 dooku_quotes = [
     "I have been trained in your Jedi arts by Count Dooku.",
     "Twice the pride, double the fall.",
@@ -37,21 +27,31 @@ system_prompt = """You are Count Dooku, a character from Star Wars and you write
 def get_random_dooku_quote() -> str: 
     return random.choice(dooku_quotes)
 
-def get_dooku_response(user_input: str) -> str:
+def add_to_history_and_get_dooku_response(history: list[dict[str, str]], user_input: str) -> str:
+    history.append({
+        "role": "user",
+        "content": user_input
+    })
+
     response = client.chat.completions.create(
         model=deployment_name,
-        messages=[
-            {
-                "role": "system",
-                "content": system_prompt
-            },
-            {
-                "role": "user",
-                "content": user_input
-            }
-        ],
+        messages=history,
     )
-    return response.choices[0].message.content.strip()
+
+    assistant_message = response.choices[0].message
+    history.append({
+        "role": assistant_message.role,
+        "content": assistant_message.content
+    })
+
+    return assistant_message.content
+
+history: list[dict[str, str]] = [
+        {
+            "role": "system",
+            "content": system_prompt
+        }
+]
 
 def main():
     print("Claude Dooku is running. Type /help for commands!")
@@ -74,7 +74,7 @@ def main():
             print("Commands: /help, /exit")
             continue
 
-        response = get_dooku_response(text)
+        response = add_to_history_and_get_dooku_response(history, text)
         print(response)
 
 if __name__ == "__main__": 
