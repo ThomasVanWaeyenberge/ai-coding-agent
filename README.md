@@ -2,6 +2,10 @@
 
 Build your own working AI coding agent from scratch. For educational purposes only.
 
+## Inspiration
+
+This workshop was modeled after Geoffrey Huntley's amazing blog post [how to build a coding agent: free workshop](https://ghuntley.com/agent/)
+
 ## Overview
 
 This workshop guides you through building a functional AI coding agent that can:
